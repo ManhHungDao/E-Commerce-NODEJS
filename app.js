@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -29,7 +28,7 @@ const api = process.env.API_URL;
 app.use(`${api}/categories`, categoriesRoutes);
 app.use(`${api}/products`, productsRoutes);
 app.use(`${api}/users`, usersRoutes);
-// app.use(`${api}/orders`, ordersRoutes);
+app.use(`${api}/orders`, ordersRoutes);
 
 //Database
 mongoose
@@ -39,14 +38,14 @@ mongoose
         dbName: process.env.DB_NAME
     })
     .then(() => {
+        console.log('we are using ' + process.env.DB_NAME);
         console.log('Database Connection is ready...');
     })
     .catch((err) => {
         console.log(err);
     });
-
+const PORT = process.env.PORT || 5000;
 //Server
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log('server is running http://localhost:3000');
 });
