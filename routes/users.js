@@ -23,6 +23,8 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    const emailExits = await User.findOne({ email: req.body.email });
+    if (emailExits) return res.status(400).send('Email existed, cannot be created!');
     let user = new User({
         name: req.body.name,
         email: req.body.email,
@@ -43,6 +45,8 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
+    const emailExits = await User.findOne({ email: req.body.email });
+    if (emailExits) return res.status(400).send('Email existed, cannot be changed!');
     User.findById(req.params.id)
         .then((userExist) => {
             let passwordHash;
@@ -51,16 +55,16 @@ router.put('/:id', async (req, res) => {
             } else {
                 passwordHash = userExist.passwordHash;
             }
-            userExist.name = req.body.name,
-            userExist.email = req.body.email,
-            userExist.passwordHash = passwordHash,
-            userExist.phone = req.body.phone,
-            userExist.isAdmin = req.body.isAdmin,
-            userExist.street = req.body.street,
-            userExist.apartment = req.body.apartment,
-            userExist.zip = req.body.zip,
-            userExist.city = req.body.city,
-            userExist.country = req.body.country;
+            (userExist.name = req.body.name),
+                (userExist.email = req.body.email),
+                (userExist.passwordHash = passwordHash),
+                (userExist.phone = req.body.phone),
+                (userExist.isAdmin = req.body.isAdmin),
+                (userExist.street = req.body.street),
+                (userExist.apartment = req.body.apartment),
+                (userExist.zip = req.body.zip),
+                (userExist.city = req.body.city),
+                (userExist.country = req.body.country);
             return userExist.save().then(() => {
                 res.send(userExist);
             });
@@ -93,6 +97,8 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
+    const emailExits = await User.findOne({ email: req.body.email });
+    if (emailExits) return res.status(400).send('Email existed, cannot be created!');
     let user = new User({
         name: req.body.name,
         email: req.body.email,
