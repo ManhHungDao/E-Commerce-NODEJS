@@ -51,21 +51,21 @@ router.put('/:id', async (req, res) => {
             } else {
                 passwordHash = userExist.passwordHash;
             }
-            (userExist.name = req.body.name),
-                (userExist.email = req.body.email),
-                (userExist.passwordHash = passwordHash),
-                (userExist.phone = req.body.phone),
-                (userExist.isAdmin = req.body.isAdmin),
-                (userExist.street = req.body.street),
-                (userExist.apartment = req.body.apartment),
-                (userExist.zip = req.body.zip),
-                (userExist.city = req.body.city),
-                (userExist.country = req.body.country);
+            userExist.name = req.body.name,
+            userExist.email = req.body.email,
+            userExist.passwordHash = passwordHash,
+            userExist.phone = req.body.phone,
+            userExist.isAdmin = req.body.isAdmin,
+            userExist.street = req.body.street,
+            userExist.apartment = req.body.apartment,
+            userExist.zip = req.body.zip,
+            userExist.city = req.body.city,
+            userExist.country = req.body.country;
             return userExist.save().then(() => {
                 res.send(userExist);
             });
         })
-        .catch((err) => {
+        .catch(() => {
             return res.status(400).send('the user cannot be created!');
         });
 });
