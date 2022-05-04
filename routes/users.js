@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    const emailExits = await User.findOne({ email: req.body.email });
+    const emailExits = await User.findOne({ email: req.body.email, _id: { $ne: req.params.id } });
     if (emailExits) return res.status(400).send('Email existed, cannot be changed!');
     User.findById(req.params.id)
         .then((userExist) => {
