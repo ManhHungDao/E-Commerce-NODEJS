@@ -3,23 +3,23 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: true
     },
     email: {
         type: String,
-        required: true,
+        required: true
     },
     passwordHash: {
         type: String,
-        required: true,
+        required: true
     },
     phone: {
         type: String,
-        required: true,
+        required: true
     },
     isAdmin: {
         type: Boolean,
-        default: false,
+        default: false
     },
     street: {
         type: String,
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    zip :{
+    zip: {
         type: String,
         default: ''
     },
@@ -41,7 +41,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ''
     }
-
 });
 
 userSchema.virtual('id').get(function () {
@@ -49,7 +48,7 @@ userSchema.virtual('id').get(function () {
 });
 
 userSchema.set('toJSON', {
-    virtuals: true,
+    virtuals: true
 });
 
 exports.User = mongoose.model('User', userSchema);
